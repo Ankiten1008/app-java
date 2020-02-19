@@ -18,7 +18,7 @@ node{
       }
     
     stage('Deploy to Tomcat Server'){
-         sh 'chmod target/*.war'
+         sh 'chmod 777 target/*.war'
          sh 'cp target/*.war /opt/apache-tomcat-8.5.51/webapps/'
       }
  }
