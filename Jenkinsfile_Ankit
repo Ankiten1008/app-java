@@ -12,8 +12,8 @@ node{
             ])
     }
     stage('Build with Maven'){
-      tool name: 'maven-tool', type: 'maven'
-      sh "${mvn} clean package deploy"
+       def mvnHome = tool name: 'maven-tool', type: 'maven'
+      sh "${mvnHome}/bin/mvn clean package deploy"
       }
  }
  
