@@ -1,6 +1,13 @@
 node{
   stage('GIT Checkout'){
-    git 'https://github.com/Ankiten1008/app-java'
+    checkout([$class: 'GitSCM',
+                branches: [[name: '*/master' ]],
+                extensions: scm.extensions,
+                userRemoteConfigs: [[
+                    url: 'https://github.com/Ankiten1008/app-java.git',
+                    credentialsId: 'gitCredentials'
+                ]]
+            ])
     }
  }
  
