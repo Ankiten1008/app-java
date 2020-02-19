@@ -11,13 +11,15 @@ node{
                 ]]
             ])
     }
+    
     stage('Build with Maven'){
        def mvnHome = tool name: 'maven-tool', type: 'maven'
       sh "${mvnHome}/bin/mvn package"
       }
-    stage('Deploy to Tomcat'){
     
-         sh 'scp -o StrictHostKeyChecking=no target/*.war /opt/tomcat8/webapps/'
+    stage('Deploy to Tomcat Server'){
+    
+         sh 'scp -o StrictHostKeyChecking=no target/*.war /opt/apache-tomcat-8.5.51/webapps/'
       }
  }
  
