@@ -19,7 +19,7 @@ node{
     
     stage('Deploy to Tomcat Server'){
     
-         sh 'scp -o StrictHostKeyChecking=no target/*.war /opt/apache-tomcat-8.5.51/webapps/'
+         sh 'cp target/*.war /opt/apache-tomcat-8.5.51/webapps/'
       }
  }
  
