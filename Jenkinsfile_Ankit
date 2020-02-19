@@ -1,4 +1,6 @@
+// Groovy Scripyt
 node{
+
   stage('GIT Checkout'){
     checkout([$class: 'GitSCM',
                 branches: [[name: '*/master' ]],
@@ -9,6 +11,11 @@ node{
                 ]]
             ])
     }
+    stage('Build with Maven'){
+      tool name: 'maven-tool', type: 'maven'
+      sh "${mvn} clean package deploy"
+      }
  }
+ 
  
   
