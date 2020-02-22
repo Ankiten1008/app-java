@@ -13,6 +13,7 @@ node{
     }
     
     stage('Build with Maven'){
+      sh "printenv"
       sh "${mvnHome}/bin/mvn package"
       }
      
