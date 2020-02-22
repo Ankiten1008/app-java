@@ -1,6 +1,6 @@
 // Groovy Scripyt
 node{
-
+  def mvnHome = tool name: 'maven-tool', type: 'maven'
   stage('GIT Checkout'){
     checkout([$class: 'GitSCM',
                 branches: [[name: '*/master' ]],
@@ -13,9 +13,15 @@ node{
     }
     
     stage('Build with Maven'){
-       def mvnHome = tool name: 'maven-tool', type: 'maven'
       sh "${mvnHome}/bin/mvn package"
       }
+      
+    stage('SonarQube Code Analysis'){
+      withSonarQubeEnv('sonar_server'){
+      sh "${mvnHome}/bin/mvn sonar:sonar"
+      }
+     }
+      
     
     stage('Deploy to Tomcat Server'){
          sh 'chmod 777 target/*.war'
