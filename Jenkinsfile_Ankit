@@ -18,8 +18,8 @@ node{
      
     stage('SonarQube Code Analysis'){
       withSonarQubeEnv('sonar_server'){
-      sh "${mvnHome}/bin/mvn sonar:sonar"
-      }
+        sh "${mvnHome}/bin/mvn sonar:sonar"
+        }
      }
      
      stage("Quality Gate"){
@@ -31,14 +31,9 @@ node{
   }
 }
 
-     }
-      
     
     stage('Deploy to Tomcat Server'){
          sh 'chmod 777 target/*.war'
          sh 'cp target/*.war /opt/apache-tomcat-8.5.51/webapps/'
       }
- }
- 
- 
-  
+}
