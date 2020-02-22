@@ -16,11 +16,18 @@ node{
       sh "${mvnHome}/bin/mvn package"
       }
      
-    stage('SonarQube Code Analysis'){
+    /*stage('SonarQube Code Analysis'){
       withSonarQubeEnv('sonar_server'){
         sh "${mvnHome}/bin/mvn sonar:sonar"
         }
-     }
+     }*/
+     
+     stage('SonarQube analysis') {
+    def scannerHome = tool name: 'sonar_direct', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
+    withSonarQubeEnv('My SonarQube Server') { 
+      sh "${scannerHome}/bin/sonar-scanner"
+      }
+     } 
      
      stage("Quality Gate"){
   timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
