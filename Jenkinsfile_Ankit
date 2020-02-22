@@ -17,7 +17,7 @@ node{
       }
       
     stage('SonarQube Code Analysis'){
-      withSonarQubeEnv('sonar_server'){
+      withSonarQubeEnv('sonar_serv'){
       sh "${mvnHome}/bin/mvn sonar:sonar"
       }
      }
