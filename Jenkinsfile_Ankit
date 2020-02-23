@@ -57,4 +57,17 @@ node{
          sh 'chmod 777 target/*.war'
          sh 'cp target/*.war /opt/apache-tomcat-8.5.51/webapps/'
       }
+    stage('Build Docker Image'){
+     sh 'docker build -t ankiten1008/my-app .'
+   }
+   stage('Push Docker Image'){
+     withCredentials([string(credentialsId: 'docker_hub_password', variable: 'dockerPassword')]) {
+        sh "docker login -u ankiten1008 -p ${dockerPassword}"
+     }
+     sh 'docker push ankiten1008/my-app'
+   }
+   stage('Run Container on Dev Server'){
+     def dockerRun = 'docker run -p 8080:8080 -d --name ankiten1008/my-app'
+       sh "${dockerRun}"
+   }
 }
