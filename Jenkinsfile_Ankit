@@ -38,8 +38,21 @@ node{
     }
   }
 }
+    stage("Upload in Jfrog"){
+        rtUpload (
+            serverId: 'JFrog_Artifactory',
+            spec: '''{
+                  "files": [
+                    {
+                      "pattern": "target/*.war",
+                      "target": "ankit/Myapp-files/"
+                    }
+                 ]
+            }''',
 
-    
+        )
+     }
+
     stage('Deploy to Tomcat Server'){
          sh 'chmod 777 target/*.war'
          sh 'cp target/*.war /opt/apache-tomcat-8.5.51/webapps/'
