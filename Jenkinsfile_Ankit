@@ -70,4 +70,7 @@ node{
      def dockerRun = 'docker run -p 8082:8080 -d --name ankitapp ankiten1008/my-app'
        sh "${dockerRun}"
    }
+   stage('Email Notification'){
+   mail bcc: '', body: "hello : Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", cc: 'ankiten1008@gmail.com', from: '', replyTo: '', subject: '## Jenkins Deployment Successful ##', to: 'ankitjaiswal934@gmail.com'
+   }
 }
