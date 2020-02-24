@@ -67,7 +67,7 @@ node{
      sh 'docker push ankiten1008/my-app'
    }
    stage('Run Container on Dev Server'){
-     def dockerRun = 'docker run -p 8082:8080 -d --name ankitapp ankiten1008/my-app'
+     def dockerRun = 'docker run -p 8082:8080 -d ankiten1008/my-app'
        sh "${dockerRun}"
    }
    stage('Email Notification'){
