@@ -68,7 +68,17 @@ node{
    }
    stage('Run Container on Dev Server'){
      def dockerRun = 'docker run -p 8082:8080 -d --name ankitapp ankiten1008/my-app'
-       sh 'docker rm ankitapp --force'
+       sh '''
+       a=$(docker ps | grep ankitapp | awk '{print $11}')
+        if [ $a == "ankitapp" ]
+        then
+            docker rm ankitapp --force
+            ${dockerRun}
+        else
+            ${dockerRun}
+        fi
+       '''
+       
        sh "${dockerRun}"
    }
    stage('Email Notification'){
