@@ -70,7 +70,7 @@ node{
      def dockerRun = 'docker run -p 8082:8080 -d --name ankitapp ankiten1008/my-app'
        sh """
          docker ps -a -f name=ankitapp | grep -w ankitapp
-         if [ "$?" -eq 0 ]; then
+         if [ "\$?" -eq 0 ]; then
               docker rm ankitapp --force
               docker run -p 8082:8080 -d --name ankitapp ankiten1008/my-app
          else
