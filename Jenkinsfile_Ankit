@@ -66,20 +66,18 @@ node{
      }
      sh 'docker push ankiten1008/my-app'
    }
-   stage('Run Container on Dev Server'){
+   stage('Kill Existing Container and Run new image'){
      def dockerRun = 'docker run -p 8082:8080 -d --name ankitapp ankiten1008/my-app'
        sh '''
-       a=$(docker ps | grep ankitapp | awk '{print $11}')
-        if [ $a == "ankitapp" ]
-        then
+       docker ps -a -f name=ankitapp | grep -w ankitapp
+       if [ $? -eq 0 ]
+       then
             docker rm ankitapp --force
             ${dockerRun}
-        else
+       else
             ${dockerRun}
-        fi
+       fi
        '''
-       
-       sh "${dockerRun}"
    }
    stage('Email Notification'){
    mail bcc: '', body: "hello : Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", cc: 'ankiten1008@gmail.com', from: '', replyTo: '', subject: '## Jenkins Deployment Successful ##', to: 'ankitjaiswal934@gmail.com'
