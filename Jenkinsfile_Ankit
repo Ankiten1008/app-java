@@ -12,12 +12,7 @@ node{
             ])
     }
     
-    stage('Build with Maven'){
-      sh "echo env.BRANCH_NAME"
-      sh "${mvnHome}/bin/mvn package"
-      }
-     
-    /*stage('SonarQube Code Analysis'){
+   /*stage('SonarQube Code Analysis'){
       withSonarQubeEnv('sonar_server'){
         sh "${mvnHome}/bin/mvn sonar:sonar"
         }
@@ -38,6 +33,11 @@ node{
     }
   }
 }
+    stage('Build with Maven'){
+      sh "echo env.BRANCH_NAME"
+      sh "${mvnHome}/bin/mvn package"
+      }
+      
     stage("Upload in Jfrog"){
         rtUpload (
             serverId: 'JFrog_Artifactory',
@@ -57,15 +57,18 @@ node{
          sh 'chmod 777 target/*.war'
          sh 'cp target/*.war /opt/apache-tomcat-8.5.51/webapps/'
       }
+    
     stage('Build Docker Image'){
      sh 'docker build -t ankiten1008/my-app .'
    }
+   
    stage('Push Docker Image'){
      withCredentials([string(credentialsId: 'docker_hub_password', variable: 'dockerPassword')]) {
         sh "docker login -u ankiten1008 -p ${dockerPassword}"
      }
      sh 'docker push ankiten1008/my-app'
    }
+   
    stage('Kill Existing Container and Run new image'){
      def dockerRun = 'docker run -p 8082:8080 -d --name ankitapp ankiten1008/my-app'
        sh """
