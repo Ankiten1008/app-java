@@ -97,5 +97,6 @@ node{
         body: '${FILE, path="myfile.html"}',
         subject: currentBuild.currentResult + " : " + env.JOB_NAME,
         to: 'ankitjaiswal934@gmail.com'
+        cc: 'ankiten1008@gmail.com'
         }   
 }
