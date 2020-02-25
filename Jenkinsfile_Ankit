@@ -69,7 +69,7 @@ node{
    stage('Kill Existing Container and Run new image'){
      def dockerRun = 'docker run -p 8082:8080 -d --name ankitapp ankiten1008/my-app'
        sh """
-         a=$(docker ps -a -f name=ankitapp | grep -i ankitapp)
+         a="$(docker ps -a -f name=ankitapp | grep -i ankitapp)"
          if [ echo $a -ne "" ]; then
               docker rm ankitapp --force'
               docker run -p 8082:8080 -d --name ankitapp ankiten1008/my-app
