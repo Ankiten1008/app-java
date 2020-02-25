@@ -1,4 +1,4 @@
-// Groovy Scripyt
+// Groovy Script
 node{
   def mvnHome = tool name: 'maven-tool', type: 'maven'
   stage('GIT Checkout'){
