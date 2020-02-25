@@ -73,9 +73,9 @@ node{
        if [ $? -eq 0 ]
        then
             docker rm ankitapp --force
-            sh "${dockerRun}"
+            "${dockerRun}"
        else
-            sh "${dockerRun}"
+            "${dockerRun}"
        fi
        '''
    }
